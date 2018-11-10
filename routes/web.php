@@ -44,3 +44,15 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
   }
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Products 
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('profile', 'UserController@profile');
+    Route::post('profile', 'UserController@update_avatar');
+
+    Route::get('/add-product','ProductsController@addProduct');
+    Route::post('/add-product','ProductsController@addProduct');
+    });
+
+
