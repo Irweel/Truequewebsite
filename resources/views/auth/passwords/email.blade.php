@@ -1,4 +1,4 @@
-@extends('layouts.deaf')
+@extends('layouts.dev')
 
 @section('content')
 <div class="container">

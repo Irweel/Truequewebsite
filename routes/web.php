@@ -10,8 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
+    return view('demo');
+});
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -48,8 +51,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Products 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('profile', 'UserController@profile');
-    Route::post('profile', 'UserController@update_avatar');
+    Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
+    Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+
+    
+    //Route::get('profile', 'UserController@profile');
+    //Route::post('profile', 'UserController@update_avatar');
 
     Route::get('/add-product','ProductsController@addProduct');
     Route::post('/add-product','ProductsController@addProduct');

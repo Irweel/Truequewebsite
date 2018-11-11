@@ -1,4 +1,4 @@
-@extends('layouts.deaf')
+@extends('layouts.dev')
 @section('content')
 <form method="POST">
 @csrf
