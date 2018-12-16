@@ -1,6 +1,7 @@
 @extends('layouts.dev')
 @section('content')
 
+
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-14"l>
@@ -10,6 +11,10 @@
           <button class="btn btn-warning pull-right">Subir Articulo</button>
         </a>
       </h2>
+      <div class="justify-content-center text-center">
+        @include('products.fragment.aside')
+      </div>
+      @include('products.fragment.info')
     </div>
   </div>
   <div class="card-body">
@@ -32,20 +37,10 @@
           <div class="col-3 col-sm-3 col-md-4 text-md-right" style="padding-top: 5px">
             <h6><strong>id: {{ $product->id}}</strong></h6>
           </div>
-          <div class="col-4 col-sm-4 col-md-4 text-right align-middle">
-            <a href="{{ route('products.edit', $product->id)}}">
-              <button class="btn btn-info">
-                editar
-              </button>
-            </a>
-          </div>
-          <div class="col-4 col-sm-2 col-md-2 text-right">
-            <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-              {{ csrf_field() }}
-              {{ method_field('DELETE') }}
-            <button class="btn btn-xs btn-default">Borrar</button>
-            </form>
-          </div>
+
+            @if(Auth::user()->id == $product->user_id)
+              @include('products.fragment.options')
+            @endif
         </div>
       </div>
       <hr>
@@ -53,6 +48,4 @@
    @endforeach
   {!! $products->render() !!}
 </div>
-
-
 @endsection

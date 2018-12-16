@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use App\Product;
-
+use App\Http\Requests\ProductRequest;
 
 
 class ProductsController extends Controller
@@ -17,19 +17,59 @@ class ProductsController extends Controller
         return view('products.index', compact('products'));
     }
 
-  public function show($id)
-  {
-      $products = Product::find($id);
-      return view('products.show', compact('products'));
-  }
+    public function create()
+    {
+        return view('products.create');
+    }
 
-  public function destroy($id)
-  {
-    $products = Product::find($id);
-    $products->delete();
+    public function store (ProductRequest $request)
+    {
+        $products = new Product;
 
-    return back()->with('info', 'El producto fue eliminado');
-  }
+        $products->name = $request->name;
+        $products->short = $request->short;
+        $products->body = $request->body;
+        $products->user_id = $request->user_id = Auth::user()->id;
+
+        $products->save();
+
+        return redirect()->route('products.index')
+                         ->with('info', 'El producto fue publicado');
+    }
+
+    public function edit($id)
+    {
+        $products = Product::find($id);
+        return view('products.edit', compact('products'));
+    }
+
+    public function update (ProductRequest $request, $id)
+    {
+        $products = Product::find($id);
+
+        $products->name = $request->name;
+        $products->short = $request->short;
+        $products->body = $request->body;
+
+        $products->save();
+
+        return redirect()->route('products.index')
+                         ->with('info', 'El producto fue actualizado');
+    }
+
+    public function show($id)
+    {
+        $products = Product::find($id);
+        return view('products.show', compact('products'));
+    }
+
+    public function destroy($id)
+    {
+        $products = Product::find($id);
+        $products->delete();
+
+        return back()->with('info', 'El producto fue eliminado');
+    }
 
     //public function addProduct(Request $request) {
     //    return view('products.add_product');
