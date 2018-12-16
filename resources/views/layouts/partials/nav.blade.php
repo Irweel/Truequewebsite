@@ -14,18 +14,23 @@
             <div class="top-right links">
               @auth
             <h4 class="text-white"> {{ Auth::user()->name }} </h4>
+              <a href="{{ url('/profile') }}" style="padding:5px;">
+                <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:32px; height:32px; border-radius:50%">
+                  <!-- {{ Auth::user()->name }}-->
+                  <span class="caret"></span>
+              </a>
+              <br>
               <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
               </a>
-              <a href="{{ url('/profile') }}" class="text-white" style="padding:5px;">Editar Usuario</a>
 
              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
                     </form>
-              <a href="{{ url('/home') }}" class="text-white" style="padding:5px;">Home</a>
               @else
+              <a href="{{ url('/home') }}" class="text-white" style="padding:5px;">Home</a>
               <a href="{{ route('login') }}" class="text-white">Login</a>
               <a href="{{ route('register') }}" class="text-white">Registro</a>
               @endauth
@@ -44,7 +49,9 @@
     </a>
     <div class="d-flex m-auto text-center" style="padding-bottom: 10px; padding-top: 10px;">
       <input type="text" class=" align-items-center form-control input-sm" maxlength="64" placeholder="Buscar" />
-      <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+          <a href="{{ route('products.index') }}" class="btn btn-primary btn-sm">
+              <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+          </a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

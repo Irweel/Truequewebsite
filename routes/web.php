@@ -51,13 +51,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Products 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
-    Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+    //Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
+    //Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
     
-    //Route::get('profile', 'UserController@profile');
-    //Route::post('profile', 'UserController@update_avatar');
+    Route::get('profile', 'UserController@profile');
+    Route::post('profile', 'UserController@update_avatar');
 
+    Route::resource('products', 'ProductsController');
+    
     Route::get('/add-product','ProductsController@addProduct');
     Route::post('/add-product','ProductsController@addProduct');
     });

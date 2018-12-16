@@ -38,6 +38,9 @@ class User extends Authenticatable
   {
     $this->notify(new ResetPasswordNotification($token));
   }
-
+  
+  public function products(){
+      return $this->hasMany('\App\Product');
+  }
 
 }
