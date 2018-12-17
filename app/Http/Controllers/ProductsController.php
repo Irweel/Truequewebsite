@@ -7,9 +7,10 @@ use Auth;
 use Session;
 use App\Product;
 use App\User;
-
+use Image;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
 {
@@ -38,12 +39,20 @@ class ProductsController extends Controller
         $products->short = $request->short;
         $products->body = $request->body;
         $products->user_id = $request->user_id = Auth::user()->id;
-        $products->image = $request->image;
+        //Create Image
+        if($request->hasFile('image')){
+          $dir = 'uploads/productos/';
+          $extension = strtolower($request->file('image')->getClientOriginalExtension()); // get image extension
+          $fileName = str_random() . '.' . $extension; // rename image
+          $request->file('image')->move($dir, $fileName);
+          $products->image = $fileName; 
+        }
         $products->save();
 
         return redirect()->route('products.index')
                          ->with('info', 'El producto fue publicado');
     }
+
 
     public function edit($id)
     {
@@ -58,8 +67,22 @@ class ProductsController extends Controller
         $products->name = $request->name;
         $products->short = $request->short;
         $products->body = $request->body;
-        $products->image = $request->image;
+        //Update Image
+
+        if ($request->hasFile('image')) {
+        $dir = 'uploads/productos/';
+        if ($products->image != '' && File::exists($dir . $products->image))
+        File::delete($dir . $products->image);
+        $extension = strtolower($request->file('image')->getClientOriginalExtension());
+        $fileName = str_random() . '.' . $extension;
+        $request->file('image')->move($dir, $fileName);
+        $products->image = $fileName;
+        } elseif ($request->remove == 1 && File::exists('uploads/productos/' . $image->image)) {
+        File::delete('uploads/productos/' . $products->post_image);
+        $products->image = null;
+        }
         $products->save();
+
 
         return redirect()->route('products.index')
                          ->with('info', 'El producto fue actualizado');

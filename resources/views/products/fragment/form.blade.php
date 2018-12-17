@@ -4,7 +4,9 @@
 </div>
 <div class="form-group">
   {!! Form::label('image', 'Imagen del producto') !!}
-  {!! Form::file('image') !!}
+  <img id="preview" src="{{asset((isset($products) && $products->image!='')?'uploads/productos/'.$products->image:'images/noimage.jpg')}}"
+                                                    height="200px" width="200px"/>
+  {{ Form::file('image') }}
 </div>
 <div class="form-group">
   {!! Form::label('short', 'Descripción breve del producto') !!}

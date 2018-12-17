@@ -13,7 +13,7 @@
 
   @include('products.fragment.error')
 
-  {!! Form::open(['route' => 'products.store', 'image' => 'true']) !!}
+  {!! Form::open(['route' => 'products.store', 'files' => 'true']) !!}
 
         @include('products.fragment.form')
 

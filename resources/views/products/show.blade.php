@@ -24,7 +24,7 @@
       {{ $products->short }}
     </p>
     {!! $products->body !!}
-   <img src="{!! $products->image !!}">
+   <img src="/uploads/productos/{{ $products->image }}">
 
 </div>
 

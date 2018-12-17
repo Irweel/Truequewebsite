@@ -21,14 +21,16 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->string('image')->default('default.jpg');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')
-                   ->references('users')
-                   ->on('id')
-                   ->onDelete('cascade');
         });
-    }
 
-    /**
+        Schema::table('products', function(Blueprint $table) {
+            $table->foreign('user_id')
+                   ->references('id')
+                   ->on('users')
+                   ->onDelete('cascade');
+    });
+    
+    }/**
      * Reverse the migrations.
      *
      * @return void
