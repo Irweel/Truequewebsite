@@ -17,7 +17,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
             @if(Auth::check())
-              @if(Auth::user()->id === $product->user_id)
+              @if(Auth::user()->id == $product->user_id)
                 <a href="{{ route('products.edit', $product->id)}}">
                   <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
                 </a>

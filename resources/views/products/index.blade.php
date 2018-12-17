@@ -38,10 +38,11 @@
           <div class="col-3 col-sm-3 col-md-4 text-md-right" style="padding-top: 5px">
             <h6><strong>id: {{ $product->id}}</strong></h6>
           </div>
-
+      @if(Auth::check())
             @if(Auth::user()->id == $product->user_id)
               @include('products.fragment.options')
             @endif
+      @endif  
         </div>
       </div>
       <hr>

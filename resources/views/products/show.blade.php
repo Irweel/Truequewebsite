@@ -7,6 +7,7 @@
   <div class="row">
     <h2 class="col-sm-8" style="padding-top:15px;">
         {{ $products->name }}
+      @if(Auth::check())
         @if(Auth::user()->id == $products->user_id)
         <a href="{{ route('products.edit', $products->id) }}">
           <button class="btn btn-default pull-right">
@@ -18,14 +19,15 @@
             Solicitar Intercambio
           </button>
         @endif
+    @endif
     </h2>
   </div>
     <p class="justify-content-center">
       {{ $products->short }}
     </p>
-    {!! $products->body !!}
    <img src="/uploads/productos/{{ $products->image }}">
 
+    {!! $products->body !!}
 </div>
 
 
