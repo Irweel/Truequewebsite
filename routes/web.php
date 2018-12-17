@@ -14,6 +14,8 @@ Route::get('/', function () {
     return view('demo');
 });
 
+Route::get('/', 'ProductsController@menu');
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -49,6 +51,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Products 
+Route::resource('products', 'ProductsController');
 
 Route::group(['middleware' => 'auth'], function () {
     //Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
@@ -58,7 +61,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@update_avatar');
 
-    Route::resource('products', 'ProductsController');
     
     Route::get('/add-product','ProductsController@addProduct');
     Route::post('/add-product','ProductsController@addProduct');

@@ -18,7 +18,7 @@
 
 @include('products.fragment.error')
 
-    {!! Form::model($products, ['route' => ['products.update', $products->id], 'method' => 'PUT']) !!}
+    {!! Form::model($products, ['route' => ['products.update', $products->id], 'method' => 'PUT', 'files' => 'true']) !!}
 
     @include('products.fragment.form')
 

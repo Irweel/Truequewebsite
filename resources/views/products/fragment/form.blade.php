@@ -3,6 +3,10 @@
   {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
+  {!! Form::label('image', 'Imagen del producto') !!}
+  {!! Form::file('image') !!}
+</div>
+<div class="form-group">
   {!! Form::label('short', 'Descripción breve del producto') !!}
   {!! Form::text('short', null, ['class' => 'form-control']) !!}
 </div>

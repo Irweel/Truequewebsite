@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use App\Product;
-use App\Http\Requests\ProductRequest;
+use App\User;
 
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -16,6 +18,12 @@ class ProductsController extends Controller
         $products = Product::orderBy('id', 'DESC')->paginate();
         return view('products.index', compact('products'));
     }
+
+    public function menu() {
+        $products = Product::orderBy('id', 'DESC')->paginate();
+        return view('demo', compact('products'));
+    }
+
 
     public function create()
     {
@@ -30,7 +38,7 @@ class ProductsController extends Controller
         $products->short = $request->short;
         $products->body = $request->body;
         $products->user_id = $request->user_id = Auth::user()->id;
-
+        $products->image = $request->image;
         $products->save();
 
         return redirect()->route('products.index')
@@ -50,7 +58,7 @@ class ProductsController extends Controller
         $products->name = $request->name;
         $products->short = $request->short;
         $products->body = $request->body;
-
+        $products->image = $request->image;
         $products->save();
 
         return redirect()->route('products.index')

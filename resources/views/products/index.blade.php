@@ -17,9 +17,10 @@
       @include('products.fragment.info')
     </div>
   </div>
+
   <div class="card-body">
       @foreach($products as $product)
-<!-- DISENO PRODUCTO -->  
+      <!-- DISENO PRODUCTO -->  
       <div class="row" style="margin-top:10px;" >
         <div class="col-14 col-sm-12 col-md-2 text-center" style="margin-bottom:10px;">
           <span class="align-middle">
@@ -44,7 +45,7 @@
         </div>
       </div>
       <hr>
-<!-- END PRODUCT -->  
+    <!-- END PRODUCT -->  
    @endforeach
   {!! $products->render() !!}
 </div>
