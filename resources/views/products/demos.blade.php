@@ -16,7 +16,8 @@
          </p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              @if(Auth::user()->id == $product->user_id)
+            @if(Auth::check())
+              @if(Auth::user()->id === $product->user_id)
                 <a href="{{ route('products.edit', $product->id)}}">
                   <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
                 </a>
@@ -24,6 +25,7 @@
                 </button>
               </form>
               @endif
+            @endif
             </div>
           <small class="text-muted">{{ $product->created_at }}</small>
         </div>
