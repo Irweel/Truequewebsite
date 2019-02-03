@@ -27,6 +27,8 @@
               @endif
             @endif
             </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary"> {{ $product->user->name}}
+                </button>
           <small class="text-muted">{{ $product->created_at }}</small>
         </div>
       </div>

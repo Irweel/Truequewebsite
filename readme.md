@@ -12,6 +12,28 @@
 https://www.cloudways.com/blog/laravel-bootstrap-template-integration/
  https://www.howtoforge.com/tutorial/install-laravel-on-ubuntu-for-apache/
 
+## Introduction
+
+Trueque website intends to be a web app that allow users to upload, edit and
+exchange products between them.
+
+## Progress
+
+Currently the project is in development. The alpha version of the project will cover:
+
+- Registration
+- Login
+- Upload, Edit and Delete products
+- See other user's products
+
+For the next version we are going to cover the following:
+
+- See other user's profiles
+- Search product
+- Search users
+- Make exchanges
+- Ban Users
+
 
 ## About Laravel
 
