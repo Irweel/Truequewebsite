@@ -161,7 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
-        Intervention\images\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*

@@ -42,6 +42,7 @@
     </div>
   </div>
 </div>
+
 <div class="navbar navbar-dark bg-dark box-shadow">
   <div class="container d-flex justify-content-between">
     <a href="/" class="navbar-brand d-flex align-items-center">
@@ -53,8 +54,37 @@
               <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
           </a>
     </div>
+      @if (auth()->check())
+    <li class="dropdown" onclick="markAsRead()"  >
+      <a  href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
+
+
+          Trueques Pendientes<span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
+        </a>
+        <ul class="dropdown-menu" role="menu"  >
+
+            @foreach(auth()->user()->unreadNotifications as $notif)
+
+                @if ( $notif->data['exchange'][0]['status']  == 'pendiente' )
+                  <a href="{{ route('exchange.show', $notif->data['exchange'][0]['id'] ) }}" >Trueque {{ $notif->data['exchange'][0]['status'] }} de {{ $notif->data['compTomName']['name'] }}</a>
+                  <br>
+
+
+
+                @else
+                  <a  >No tiene ningun Trueque pendiente</a>
+                @endif
+
+            @endforeach
+
+
+          </li>
+        </ul>
+      </li>
+        @endif
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 </div>
+
 </div>

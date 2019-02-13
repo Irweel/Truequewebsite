@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  <h2 style="margin-top: 20px; margin-bottom: 20px;">{{ $user->name }}</h2>
+  <h2 style="margin-top: 20px; margin-bottom: 20px;">{{ Auth::user()->name }}</h2>
   <hr>
   <div class="row">
   <!-- left column -->
@@ -15,75 +15,137 @@
         </form>
         <input type="file" class="form-control">
       </div>
+      <br>
+      <div class="text-center">
+        <a class="btn btn-primary" style="color: white;" onclick="toggler('hidden');" >historial de trueques</a>
+      </div>
     </div>
 
+    <div id="myContent" class="hidden" style=" display:none;">
+      @foreach($exchangeFrom as $exchangeInfo)
+        id: {{$exchangeInfo->id}}
+        @foreach($users as $user)
+          @if ( $user->id == $exchangeInfo->user_from )
+            con usuario {{$user->name}}
+          @endif
+
+        @endforeach
+        @foreach($users as $user)
+          @if ( $user->id == $exchangeInfo->user_to )
+            y {{$user->name}}
+          @endif
+        @endforeach
+        estado: {{$exchangeInfo->status}}
+
+        <a data-toggle="collapse" href="#collapse{{$exchangeInfo->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+          more
+        </a>
+        <br>
+        <div class="collapse" id="collapse{{$exchangeInfo->id}}">
+            <div class="card card-body" style="max-width: 500px;">
+              productos en Trueque :<br>
+              @foreach($products as $product)
+                @foreach($exchangedetails as $details)
+
+                  @if ( $details->exchange_id == $exchangeInfo->id )
+
+                      @if ($product->id == $details->product_id)
+                        {{ $product->name  }}<br>
+                      @endif
+
+
+                  @endif
+                @endforeach
+              @endforeach
+            </div>
+        </div>
+        <br>
+      @endforeach
+
+      @foreach($exchangeTo as $exchangeInfo)
+
+        id: {{$exchangeInfo->id}}
+        @foreach($users as $user)
+          @if ( $user->id == $exchangeInfo->user_from )
+            con usuario {{$user->name}}
+          @endif
+
+        @endforeach
+        @foreach($users as $user)
+          @if ( $user->id == $exchangeInfo->user_to )
+            y {{$user->name}}
+          @endif
+        @endforeach
+        estado: {{$exchangeInfo->status}}
+
+        <a data-toggle="collapse" href="#collapse{{$exchangeInfo->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+          more
+        </a>
+        <br>
+        <div class="collapse" id="collapse{{$exchangeInfo->id}}">
+            <div class="card card-body" style="max-width: 500px;">
+              productos en Trueque :<br>
+              @foreach($products as $product)
+                @foreach($exchangedetails as $details)
+
+                  @if ( $details->exchange_id == $exchangeInfo->id )
+
+                      @if ($product->id == $details->product_id)
+                        {{ $product->name  }}<br>
+                      @endif
+
+
+                  @endif
+                @endforeach
+              @endforeach
+            </div>
+        </div>
+        <br>
+      @endforeach
+    </div>
     <!-- edit form column -->
-      <div class="col-md-9 personal-info">
+      <div class="col-md-9 personal-info hidden"  style=" display:show;" >
         <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <a class="panel-close close" data-dismiss="alert">×</a>
           <i class="fa fa-coffee"></i>
           <strong>Adventencia!</strong> Para cambiar datos se necesita confirmación.
         </div>
         <h3 style="margin-top: 20px; margin-bottom: 20px;">Información Personal</h3>
 
-        <form class="form-horizontal" role="form">
+        <form  action="{{route('profile.update', Auth::user()->id )}}" method="POST" class="form-horizontal" role="form" >
+           {{ csrf_field() }}
+          {{ method_field('patch') }}
           <div class="form-group">
             <label class="col-lg-3 control-label">Nombre:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="{{ $user->name }}">
+              <input class="form-control"  name="name"  type="text" value="{{ Auth::user()->name }}">
             </div>
           </div>
+
           <div class="form-group">
-            <label class="col-lg-3 control-label">Ciudad::</label>
+            <label class="col-lg-3 control-label"  >Email:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" value="Buenos Aires">
+                <input class="form-control" type="text" name="email" value="{{ Auth::user()->email }}">
               </div>
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-              <div class="col-lg-8">
-                <input class="form-control" type="text" value="{{ $user->email }}">
-              </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Zona Horaria:</label>
-            <div class="col-lg-8">
-              <div class="ui-select">
-                <select id="user_time_zone" class="form-control">
-                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Username:</label>
-              <div class="col-md-8">
-                <input class="form-control" type="text" value="{{ $user->name }}">
-              </div>
-          </div>
+
+      
           <div class="form-group">
             <label class="col-md-3 control-label">Password:</label>
               <div class="col-md-8">
-                <input class="form-control" type="password" value="{{ $user->password }}">
+                <input class="form-control" type="password" name="password" value="{{ Auth::user()->password }}">
               </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Confirm password:</label>
               <div class="col-md-8">
-                <input class="form-control" type="password" value="{{ $user->password }}">
+                <input class="form-control" type="password"  name="password_confirmation" value="{{ Auth::user()->password }}">
               </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
               <div class="col-md-8">
-                <input type="submite" class="btn btn-primary" value="Save Changes">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
                 <span></span>
                 <input type="reset" class="btn btn-default" value="Cancel">
               </div>

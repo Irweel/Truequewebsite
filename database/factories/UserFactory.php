@@ -30,6 +30,3 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'user_id' => '1',
     ];
 });
-
-
-

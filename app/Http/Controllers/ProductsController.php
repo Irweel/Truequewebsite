@@ -45,7 +45,7 @@ class ProductsController extends Controller
           $extension = strtolower($request->file('image')->getClientOriginalExtension()); // get image extension
           $fileName = str_random() . '.' . $extension; // rename image
           $request->file('image')->move($dir, $fileName);
-          $products->image = $fileName; 
+          $products->image = $fileName;
         }
         $products->save();
 
@@ -59,6 +59,8 @@ class ProductsController extends Controller
         $products = Product::find($id);
         return view('products.edit', compact('products'));
     }
+
+    
 
     public function update (ProductRequest $request, $id)
     {

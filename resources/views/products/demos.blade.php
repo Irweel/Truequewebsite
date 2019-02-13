@@ -21,14 +21,23 @@
                 <a href="{{ route('products.edit', $product->id)}}">
                   <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
                 </a>
-                <button type="button" class="btn btn-sm btn-outline-secondary"> {{ $product->user_id}}
-                </button>
+
               </form>
+
+              @else
+                <a href="{{ route('exchange.new', $product->user->id)}}">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Solicitar trueque a {{ $product->user->name}}
+                  </button>
+                </a>
               @endif
+            @else
+              <a href="{{ url('login')}}">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Solicitar trueque a {{ $product->user->name}}
+              </button>
+            </a>
             @endif
             </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary"> {{ $product->user->name}}
-                </button>
+
           <small class="text-muted">{{ $product->created_at }}</small>
         </div>
       </div>

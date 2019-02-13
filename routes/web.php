@@ -20,6 +20,9 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+
+
+
 //Auth::routes();
 // Las siguientes funciones fueron sacadas de /vendor/Laravel/framework/src/Illuminate/router.php
 // los $this-> fueron reemplazados por Routes::
@@ -50,20 +53,47 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Products 
+// Products
+
 Route::resource('products', 'ProductsController');
+
+Route::get('exchange/new/{id}', 'ExchangeController@new')->name('exchange.new');
+
+Route::get('exchange/add-product/{id}', 'ExchangeController@addProduct')->name('exchange.addProduct');
+Route::get('exchange/success/{button}', 'ExchangeController@sendExchange')->name('exchange.success');
+Route::get('exchange/showExchange/{id}', 'ExchangeController@showExchange')->name('exchange.show');
+Route::get('exchange/reject', 'ExchangeController@rejectExchange')->name('exchange.reject');
+
+Route::resource('exchange', 'ExchangeController', ['except' => [
+    'create',
+    'update',
+    'show'
+]]);
+
+Route::get('/markAsRead', function(){
+  $user = Auth::user();
+
+  $user->unreadNotifications()->update(['read_at' => now()]);
+});
+
+
 
 Route::group(['middleware' => 'auth'], function () {
     //Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
     //Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
-    
     Route::get('profile', 'UserController@profile');
+    Route::get('user_profile/{id}', 'UserController@user_profile')->name('profile.user_profile');
+
+
+    Route::post('/postajax','UserController@sendRating');
+
     Route::post('profile', 'UserController@update_avatar');
 
-    
+
+    Route::patch('profile/{user}',  ['as' => 'profile.update', 'uses' => 'UserController@update']);
+
+
     Route::get('/add-product','ProductsController@addProduct');
     Route::post('/add-product','ProductsController@addProduct');
     });
-
-
