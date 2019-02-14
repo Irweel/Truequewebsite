@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','avatar'
     ];
 
     /**
@@ -48,4 +48,10 @@ class User extends Authenticatable
         return $this->hasMany("App\Exchange");
     }
 
+  public function scopeName($query, $name)
+  {
+    if($name)
+        return $query->where('name', 'LIKE', "%$name%");
+
+ } 
 }

@@ -364,7 +364,7 @@ class ExchangeController extends Controller
         session()->forget('cart');
         session()->forget('exchange');
         DB::table('exchanges')->where('id', $exchangeInSession->id)->update(['status' => "rechazado"]);
-        return view ('home');
+        return view ('/home');
     }
 
 

@@ -83,4 +83,11 @@ class UserController extends Controller
         $user->save();
         return back();
     }
+
+    public function index(Request $request)
+    {
+        $name = $request->get('name');
+
+        $users = User::orderBy('id', 'DESC')->paginate(4);
+    }
 }

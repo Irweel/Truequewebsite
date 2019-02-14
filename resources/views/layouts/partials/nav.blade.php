@@ -49,21 +49,26 @@
       <strong>El Trueque</strong>
     </a>
     <div class="d-flex m-auto text-center" style="padding-bottom: 10px; padding-top: 10px;">
-      <input type="text" class=" align-items-center form-control input-sm" maxlength="64" placeholder="Buscar" />
-          <a href="{{ route('products.index') }}" class="btn btn-primary btn-sm">
-              <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
-          </a>
+
+    {!! Form::open(['route' => 'products.index', 'method' => 'GET', 'class' => 'form-inline pull-right']) !!}
+
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+
+      <button type="submit" class="btn btn-primary ">Buscar</button>
+
+
+    {!! Form::close() !!}
     </div>
       @if (auth()->check())
     <li class="dropdown" onclick="markAsRead()"  >
       <a  href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
 
 
-          Trueques Pendientes<span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
+          Trueques Pendientes<span class="badge">{{ count(auth()->user()->Notifications) }}</span>
         </a>
         <ul class="dropdown-menu" role="menu"  >
 
-            @foreach(auth()->user()->unreadNotifications as $notif)
+            @foreach(auth()->user()->Notifications as $notif)
 
                 @if ( $notif->data['exchange'][0]['status']  == 'pendiente' )
                   <a href="{{ route('exchange.show', $notif->data['exchange'][0]['id'] ) }}" >Trueque {{ $notif->data['exchange'][0]['status'] }} de {{ $notif->data['compTomName']['name'] }}</a>

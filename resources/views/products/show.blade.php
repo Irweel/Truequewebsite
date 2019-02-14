@@ -13,9 +13,11 @@
             </button>
           </a>
           @else
-          <button class="btn btn-default pull-right">
-              Solicitar Intercambio
-            </button>
+            <a href="{{ route('exchange.new', $products->user->id)}}">
+              <button class="btn btn-default pull-right">
+                Solicitar Intercambio
+              </button>
+            </a>
           @endif
       @endif
     </small>

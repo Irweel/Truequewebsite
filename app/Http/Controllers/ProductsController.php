@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'DESC')->paginate();
+        $name = $request->get('name');
+        $products = Product::orderBy('id', 'DESC')
+        ->name($name)
+        ->paginate();
         return view('products.index', compact('products'));
     }
 
@@ -24,7 +27,6 @@ class ProductsController extends Controller
         $products = Product::orderBy('id', 'DESC')->paginate();
         return view('demo', compact('products'));
     }
-
 
     public function create()
     {
