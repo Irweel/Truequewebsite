@@ -10,11 +10,13 @@
     <div class="col-md-3">
       <div class="text-center">
         <img src="/uploads/avatars/{{ $user->avatar }}" class="avatar img-circle" alt="avatar"style="width:150px; height:150px;border-radius:50%;">
-        <form enctype="multipart/form-data" action="/profile" method="POST">
-          <label>Cambiar Imagen de Perfil</label>
-        </form>
-        <input type="file" class="form-control">
       </div>
+<form enctype="multipart/form-data" action="/profile" method="POST">
+  <label>Update Profile Image</label>
+  <input type="file" name="avatar">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <input type="submit" class="pull-right btn btn-sm btn-primary">
+</form>
       <br>
       <div class="text-center">
         <a class="btn btn-primary" style="color: white;" onclick="toggler('hidden');" >historial de trueques</a>

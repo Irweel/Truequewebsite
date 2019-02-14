@@ -25,13 +25,13 @@ Currently the project is in development. The alpha version of the project will c
 - Login
 - Upload, Edit and Delete products
 - See other user's products
+- See other user's profiles
+- Search product
+- Make exchanges
 
 For the next version we are going to cover the following:
 
-- See other user's profiles
-- Search product
 - Search users
-- Make exchanges
 - Ban Users
 
 

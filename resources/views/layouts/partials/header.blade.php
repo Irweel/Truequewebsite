@@ -7,10 +7,10 @@
     <p>
   @if(Auth::check())
         <a href="{{ route('products.create')}}" class="btn btn-primary">Subir Articulo</a>
-        <a href="#" class="btn btn-secondary">Categorias</a>
+        <a href="{{ route('profile.user_profile', Auth::user()->id)}}" class="btn btn-secondary">Mi perfil</a>
     @else
         <a href="{{ url('login')}}" class="btn btn-primary">Subir Articulo</a>
-        <a href="#" class="btn btn-secondary">Registrarse</a>
+        <a href="{{ url('register')}}" class="btn btn-secondary">Registrarse</a>
     @endif
     </p>
   </div>

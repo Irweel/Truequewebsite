@@ -21,8 +21,6 @@ Route::get('/welcome', function () {
 });
 
 
-
-
 //Auth::routes();
 // Las siguientes funciones fueron sacadas de /vendor/Laravel/framework/src/Illuminate/router.php
 // los $this-> fueron reemplazados por Routes::
@@ -85,10 +83,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'UserController@profile');
     Route::get('user_profile/{id}', 'UserController@user_profile')->name('profile.user_profile');
 
-
     Route::post('/postajax','UserController@sendRating');
 
-    Route::post('profile', 'UserController@update_avatar');
+    Route::post('/profile', 'UserController@update_avatar')->name('profile.change');
 
 
     Route::patch('profile/{user}',  ['as' => 'profile.update', 'uses' => 'UserController@update']);
