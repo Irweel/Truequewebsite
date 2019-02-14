@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Auth;
 use Image;
@@ -9,11 +10,15 @@ use App\User;
 use App\Exchange;
 use App\ExchangeDetails;
 use App\Product;
+use App\UserRatings;
+use willvincent\Rateable\Rateable;
+use Illuminate\Database\Eloquent\Model;
 
 
 
 class UserController extends Controller
 {
+
 
     public function profile(){
 
@@ -30,9 +35,15 @@ class UserController extends Controller
 
     public function user_profile($id){
 
+
+
         $user = User::find($id);
         $products = Product::where('user_id',$id)->get();
-        return view('user_profile',array('user' => $user), compact('products') );
+
+        $ratings = UserRatings::all();
+
+
+        return view('user_profile',array('user' => $user,'ratings' => $ratings), compact('products') );
     }
 
 
@@ -53,14 +64,18 @@ class UserController extends Controller
 
     }
 
-    public function sendRating(){
+    public function sendRating($variable,$user_from,$user_to){
 
-      $response = array(
-        'status' => 'success',
-        'msg' => $request->message,
+      DB::table('userratings')->insert(
+        [
+          'user_from' => $user_from,
+          'user_to' => $user_to,
+          'rating' => $variable
+
+        ]
       );
 
-      return response()->json($response);
+      return back();
     }
 
     public function __construct()

@@ -62,7 +62,7 @@ class ProductsController extends Controller
         return view('products.edit', compact('products'));
     }
 
-    
+
 
     public function update (ProductRequest $request, $id)
     {

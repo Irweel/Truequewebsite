@@ -17,30 +17,22 @@ var options = {
     cursor: 'default',
     readonly: false,
     change_once: false, // Determines if the rating can only be set once
-    ajax_method: 'POST',
-    url: '/postajax',
+    ajax_method: 'get',
+    url:"{{url('/postajax')}}/"+$(".rating").rate("getValue"),
     additional_data: {
     } // Additional data to send to the server
 }
 
 $(".rating").rate(options);
 
+
+
 $(document).ready(function(){
   $("#hola").click(function(){
     var rate =  $(".rating").rate("getValue");
-    $(".sent").html(rate);
-    $(".rating").rate("setAdditionalData", {id: 42});
-
-    $.ajax({
-      method: 'POST',
-      url: '/postajax',
-      data: {
-          rate: rate
-       },
-  });
+    $(".sent").val(rate);
 
 
 
-
-  });
+});
 });

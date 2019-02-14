@@ -64,23 +64,25 @@
       <a  href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
 
 
-          Trueques Pendientes<span class="badge">{{ count(auth()->user()->Notifications) }}</span>
+          Trueques Pendientes<span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
         </a>
         <ul class="dropdown-menu" role="menu"  >
 
-            @foreach(auth()->user()->Notifications as $notif)
+            @forelse(auth()->user()->unreadNotifications as $notif)
 
                 @if ( $notif->data['exchange'][0]['status']  == 'pendiente' )
-                  <a href="{{ route('exchange.show', $notif->data['exchange'][0]['id'] ) }}" >Trueque {{ $notif->data['exchange'][0]['status'] }} de {{ $notif->data['compTomName']['name'] }}</a>
+                  <a href="{{ route('exchange.show', ['id'=>$notif->data['exchange'][0]['id'],'NotifId'=>$notif->id]   ) }}" >Trueque {{ $notif->data['exchange'][0]['status'] }} de {{ $notif->data['compTomName']['name'] }}</a>
                   <br>
 
 
 
-                @else
-                  <a  >No tiene ningun Trueque pendiente</a>
                 @endif
+              @empty
+              No tienes Notificaciones
 
-            @endforeach
+
+
+            @endforelse
 
 
           </li>

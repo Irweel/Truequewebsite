@@ -17,12 +17,15 @@
                                         {{ $user->name}}
                                     </h2>
 
-                                    <p class="proile-rating">
+                                    @if($ratings->where("user_from", Auth::user()->id)->where("user_to", $user->id)->isEmpty())
+                                      <a href="{{ route('profile.likes', ['user_from'=>Auth::user()->id,'user_to'=>$user->id, 'variable'=>'like'] )}}">Like</a>
+                                      <a href="{{ route('profile.likes', ['user_from'=>Auth::user()->id,'user_to'=>$user->id, 'variable'=>'dislike'] )}}">Dislike</a>
+                                    @else
+                                      Likes: {{count($ratings->where("user_to", $user->id)->where("rating", "like") )}}
+                                      Dislike: {{count($ratings->where("user_to", $user->id)->where("rating", "dislike") )}}
+                                    @endif
 
-                                    <div class="rating" data-rate-value=0></div>
-                                      <a role="button" href="#" id="hola">Rate {{ $user->name}}!</a>
-                                          <p class="sent"><p>
-                                    </p>
+
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Datos de Contacto</a>
