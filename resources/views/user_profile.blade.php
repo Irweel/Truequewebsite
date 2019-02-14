@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:320px; height:200px; border-radius:50%">
+                            <img src="/uploads/avatars/{{ $user->avatar }}" style="width:320px; height:200px; border-radius:50%">
                         </div>
                     </div>
                     <div class="col-md-6">
