@@ -147,7 +147,7 @@ class ExchangeController extends Controller
 
             $userTo = User::find($exchangeInSession->user_to);
 
-            
+
 
             session()->forget('cart');
             session()->forget('exchange');
@@ -368,6 +368,20 @@ class ExchangeController extends Controller
 
 
 
+        return redirect()->back();
+
+
+    }
+
+    public function deleteProduct($id)
+    {
+
+       $oldCart = Session::has('cart') ? Session::get('cart') : null;
+       $cart = new Cart($oldCart);
+       $cart->deleteItem($id);
+
+       Session::put('cart', $cart);
+        //then you can redirect or whatever you need
         return redirect()->back();
 
 

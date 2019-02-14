@@ -83,8 +83,11 @@
             <li class = "list-group-item">
               <strong> {{ $product['item']['name'] }}</strong>
               <div class="btn-group">
-                <button  type="button" class="btn btn-primary" data-toggle="dropdown">Eliminar<span class = "caret"></span>
-                </button>
+                <a href="{{ route('exchange.deleteProduct', $product['item']['id'])}}">
+
+                  <button  type="button" class="btn btn-primary" >Eliminar
+                  </button>
+                </a>
                 <ul class= "dropdown-menu">
                   <li><a href="#">Remove</a></li>
                 </ul>

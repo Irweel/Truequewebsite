@@ -58,6 +58,7 @@ Route::resource('products', 'ProductsController');
 Route::get('exchange/new/{id}', 'ExchangeController@new')->name('exchange.new');
 
 Route::get('exchange/add-product/{id}', 'ExchangeController@addProduct')->name('exchange.addProduct');
+Route::get('exchange/delete-product/{id}', 'ExchangeController@deleteProduct')->name('exchange.deleteProduct');
 Route::get('exchange/success/{button}/{NotifId}', 'ExchangeController@sendExchange')->name('exchange.success');
 Route::get('exchange/showExchange/{id}/{NotifId}', 'ExchangeController@showExchange')->name('exchange.show');
 Route::get('exchange/reject/{NotifId}', 'ExchangeController@rejectExchange')->name('exchange.reject');

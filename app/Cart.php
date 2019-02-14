@@ -23,4 +23,8 @@ class Cart
       }
       $this -> items[$id] = $storedItem;
     }
+
+    public function deleteItem($id){
+      unset($this->items[$id]);
+    }
 }
