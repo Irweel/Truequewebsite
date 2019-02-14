@@ -61,7 +61,7 @@ class ExchangeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function sendExchange($button)
+    public function sendExchange($button, $NotifId)
     {
 
       $oldCart = Session::get('cart');
@@ -114,6 +114,12 @@ class ExchangeController extends Controller
 
       if( $exchangeInSession!=null ){
           if($button == "Cambiar!" ){
+            $notification = auth()->user()->notifications()->find($NotifId);
+
+            if($notification) {
+                $notification->markAsRead();
+            }
+
             $exchangedetails = ExchangeDetails::all();
             $query = ExchangeDetails::select('*')->where('exchange_id', $exchangeInSession->id)->get();
 
@@ -134,17 +140,19 @@ class ExchangeController extends Controller
 
             DB::table('exchanges')->where('id', $exchangeInSession->id)->update(['status' => "completado"]);
             $user = Auth::user();
-            $user->unreadNotifications()->update(['read_at' => now()]);
+
             $exchange = Exchange::where('id',$exchangeInSession->id)->get();
 
             $exchange = Exchange::where('id',$exchangeInSession->id)->get();
 
             $userTo = User::find($exchangeInSession->user_to);
 
-            $userTo->notify(new UserRequestedExchange($exchange, $userTo));
+            
 
             session()->forget('cart');
             session()->forget('exchange');
+
+
 
 
 
@@ -182,6 +190,12 @@ class ExchangeController extends Controller
 
             session()->forget('cart');
             session()->forget('exchange');
+
+            $notification = auth()->user()->notifications()->find($NotifId);
+
+            if($notification) {
+                $notification->markAsRead();
+            }
 
           }
 
@@ -235,7 +249,7 @@ class ExchangeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showExchange($id)
+    public function showExchange($id,$NotifId)
     {
       //$exchange = Exchange::find($id);
 
@@ -243,7 +257,9 @@ class ExchangeController extends Controller
 
       $user = Auth::user();
 
-      $user->unreadNotifications()->update(['read_at' => now()]);
+
+
+      //$user->unreadNotifications()->update(['read_at' => now()]);
 
       $exchange = Exchange::find($id);
       $exchangedetails = ExchangeDetails::all();
@@ -293,7 +309,7 @@ class ExchangeController extends Controller
 
       session()->put('exchange', $exchange);
 
-      return view('exchange.show',compact('userToProducts'),compact('userFromProducts'))->with(['products' => $cart->items])->with(['button'=>$button]);
+      return view('exchange.show',compact('userToProducts'),compact('userFromProducts', 'NotifId'))->with(['products' => $cart->items])->with(['button'=>$button]);
     }
 
     /**
@@ -357,8 +373,14 @@ class ExchangeController extends Controller
 
     }
 
-    public function rejectExchange()
+    public function rejectExchange($NotifId)
     {
+
+        $notification = auth()->user()->notifications()->find($NotifId);
+
+        if($notification) {
+            $notification->markAsRead();
+        }
 
         $exchangeInSession = Session::get('exchange');
         session()->forget('cart');

@@ -121,7 +121,8 @@ Productos del otro usuario
 
 
             @if($button == "Retrueque!"))
-              <a href="{{ route('exchange.success', $button)}}">
+
+              <a href="{{ route('exchange.success', ['button'=>$button,'NotifId'=>$NotifId] )}}">
 
 
                 <button type="button" class="btn btn-sm btn-outline-secondary">{{ $button }}
@@ -130,7 +131,7 @@ Productos del otro usuario
 
               </a>
             @else
-            <a href="{{ route('exchange.success', $button)}}">
+            <a href="{{ route('exchange.success', ['button'=>$button,'NotifId'=>$NotifId] )}}">
 
 
               <button type="button" class="btn btn-sm btn-outline-secondary">{{ $button }}
@@ -139,7 +140,7 @@ Productos del otro usuario
 
             </a>
             @endif
-            <a href="{{ route('exchange.reject')}}">
+            <a href="{{ route('exchange.reject', ['button'=>$button,'NotifId'=>$NotifId] )}}">
 
 
               <button type="button" class="btn btn-sm btn-outline-secondary">Rechazar Trueque

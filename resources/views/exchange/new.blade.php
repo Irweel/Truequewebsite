@@ -97,7 +97,7 @@
       <div class="row">
         <div class = "col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
 
-          <a href="{{ route('exchange.success', 'Solicitar-Intercambio')}}">
+          <a href="{{ route('exchange.success', ['button'=>'Solicitar-Intercambio','NotifId'=>'new'])}}">
             <button type="button" class="btn btn-sm btn-outline-secondary">Solicitar Intercambio
             </button>
           </a>

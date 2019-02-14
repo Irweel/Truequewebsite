@@ -58,9 +58,9 @@ Route::resource('products', 'ProductsController');
 Route::get('exchange/new/{id}', 'ExchangeController@new')->name('exchange.new');
 
 Route::get('exchange/add-product/{id}', 'ExchangeController@addProduct')->name('exchange.addProduct');
-Route::get('exchange/success/{button}', 'ExchangeController@sendExchange')->name('exchange.success');
-Route::get('exchange/showExchange/{id}', 'ExchangeController@showExchange')->name('exchange.show');
-Route::get('exchange/reject', 'ExchangeController@rejectExchange')->name('exchange.reject');
+Route::get('exchange/success/{button}/{NotifId}', 'ExchangeController@sendExchange')->name('exchange.success');
+Route::get('exchange/showExchange/{id}/{NotifId}', 'ExchangeController@showExchange')->name('exchange.show');
+Route::get('exchange/reject/{NotifId}', 'ExchangeController@rejectExchange')->name('exchange.reject');
 
 Route::resource('exchange', 'ExchangeController', ['except' => [
     'create',
@@ -74,6 +74,9 @@ Route::get('/markAsRead', function(){
   $user->unreadNotifications()->update(['read_at' => now()]);
 });
 
+Route::get('likes/{variable}/{user_from}/{user_to}','UserController@sendRating')->name('profile.likes');
+
+
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -83,7 +86,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'UserController@profile');
     Route::get('user_profile/{id}', 'UserController@user_profile')->name('profile.user_profile');
 
-    Route::post('/postajax','UserController@sendRating');
+
+
 
     Route::post('/profile', 'UserController@update_avatar')->name('profile.change');
 

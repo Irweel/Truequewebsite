@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use willvincent\Rateable\Rateable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use Rateable;
 
     /**
      * The attributes that are mass assignable.
