@@ -20,7 +20,10 @@ class ProductsController extends Controller
         $products = Product::orderBy('id', 'DESC')
         ->name($name)
         ->paginate();
-        return view('products.index', compact('products'));
+        $users = User::orderBy('id', 'DESC')
+        ->name($name)
+        ->paginate();
+        return view('products.index', compact('products','users'));
     }
 
     public function menu() {

@@ -24,6 +24,17 @@
     </div>
   </div>
 
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Productos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Usuarios</a>
+    </li>
+  </ul>
+
+<div class="tab-content profile-tab" id="myTabContent">
+<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
   <div class="card-body">
       @foreach($products as $product)
       <!-- DISENO PRODUCTO -->  
@@ -58,6 +69,24 @@
       <hr>
     <!-- END PRODUCT -->  
    @endforeach
-  {!! $products->render() !!}
+      {!! $products->render() !!}
+  </div>
+</div>
+<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="row">
+    @foreach($users as $user)
+      <div class="row" style="margin-top:10px;" >
+        <div class="col-14 col-sm-12 col-md-2 text-center" style="margin-bottom:10px;">
+          <span class="align-middle">
+            <img class="img-fluid" src="/uploads/avatars/{{ $user->avatar }}" style="margin-left:30px;" alt="prewiew" width="100%" height="auto">
+          </span>
+        </div>
+        <div class="col-14 text-sm-center col-sm-12 text-md-left col-md-6">
+          <h4 class="product-name"style="margin-left:30px;">
+          <strong><a href="{{ route('profile.user_profile', $user->id) }}">{{$user->name}}</strong></h4></a>
+        </div>
+      </div>
+    @endforeach
+  </div>
 </div>
 @endsection
