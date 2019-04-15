@@ -1,5 +1,4 @@
-<img src="https://camo.githubusercontent.com/be450d3702d62e79ca28f4b5ccb3de3104ccbd98/687474703a2f2f31382e3232342e312e34362f696d616765732f6c6f676f2e706e67" data-canonical-src="http://18.224.1.46/images/logo.png" style="max-width:50%;">
-
+<p align="center"><img src="http://18.224.1.46/images/logo.png" width="200"></p>
 
 # Trueque Web Site
  
