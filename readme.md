@@ -1,7 +1,6 @@
-<p align="center"><img src="http://18.224.1.46/images/logo.png"></p>
+<p align="center" style="width: 200px; height:auto;"><img src="http://18.224.1.46/images/logo.png"></p>
 
-
-## Trueque Web Site
+# Trueque Web Site
  
 University project.
 
