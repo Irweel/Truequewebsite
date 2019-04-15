@@ -1,4 +1,4 @@
-<p align="center" style="max-width:50%;"><img src="http://18.224.1.46/images/logo.png"></p>
+<p align="center"><img src="http://18.224.1.46/images/logo.png" style="max-width:50%;"></p>
 
 # Trueque Web Site
  
